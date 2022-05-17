@@ -31,3 +31,9 @@ std::shared_ptr<redisReply> RedisClient::get(char * key, size_t key_size)
     auto reply = static_cast<redisReply *>(redisCommand(context, "GET %b", key, key_size));
     return std::shared_ptr<redisReply>(reply, [](redisReply * r) { freeReplyObject(r); });
 }
+
+std::shared_ptr<redisReply> RedisClient::keys(char * key, size_t key_size)
+{
+    auto reply = static_cast<redisReply *>(redisCommand(context, "KEYS %b", key, key_size));
+    return std::shared_ptr<redisReply>(reply, [](redisReply * r) { freeReplyObject(r); });
+}
